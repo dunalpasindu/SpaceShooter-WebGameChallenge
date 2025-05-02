@@ -1,0 +1,159 @@
+[gd_scene load_steps=11 format=3 uid="uid://cs67s4w6p2t7h"]
+
+[ext_resource type="Script" uid="uid://cphany4rt05x5" path="res://scenes/player.gd" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://6c4q2rc66w2j" path="res://scenes/world.gd" id="1_k0juu"]
+[ext_resource type="Texture2D" uid="uid://cmcjtewc0osne" path="res://assets/kenney_space-shooter-redux/ShipsPNG/ship4.png" id="1_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://qa2umr8e2kqy" path="res://scenes/laser.tscn" id="3_71j4m"]
+[ext_resource type="Texture2D" uid="uid://cpkkl8tow2772" path="res://assets/kenney_space-shooter-redux/Backgrounds/black.png" id="5_7r4gi"]
+[ext_resource type="Script" uid="uid://bjdnha8mhdaun" path="res://scenes/label_score.gd" id="6_4mrxx"]
+[ext_resource type="Script" uid="uid://oh8rv3db1ygq" path="res://scenes/enemy_spawner.gd" id="6_qfnet"]
+[ext_resource type="Script" uid="uid://nuvneojvuw6o" path="res://scenes/label_game_over.gd" id="7_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://8he1oktr2o7y" path="res://scenes/enemy.tscn" id="7_i7141"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4wyf3"]
+radius = 24.5313
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_k0juu")
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2(624, 632)
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_4wyf3")
+laser_tcsn = ExtResource("3_71j4m")
+
+[node name="PlayerBody" type="Sprite2D" parent="Player"]
+z_index = 5
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_rwgxs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+z_index = 5
+position = Vector2(0, 8)
+scale = Vector2(-2.93503, 2.53117)
+shape = SubResource("CircleShape2D_4wyf3")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(639, 358.5)
+scale = Vector2(5.01563, 2.85547)
+texture = ExtResource("5_7r4gi")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1287.0
+offset_bottom = 720.0
+
+[node name="LabelScore" type="Label" parent="Control"]
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 101.711
+offset_bottom = -95.162
+theme_override_font_sizes/font_size = 35
+text = "Score: 0"
+script = ExtResource("6_4mrxx")
+
+[node name="LabelHighScore" type="Label" parent="Control"]
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 880.0
+offset_top = 16.0
+offset_right = 1066.57
+offset_bottom = -94.12
+theme_override_font_sizes/font_size = 35
+text = "High Score: 0"
+horizontal_alignment = 2
+
+[node name="LabelGameOver" type="Label" parent="Control"]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 495.0
+offset_top = 296.0
+offset_right = 635.711
+offset_bottom = 205.838
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+script = ExtResource("7_7r4gi")
+
+[node name="RestartLabel" type="Label" parent="Control"]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 496.0
+offset_top = 360.0
+offset_right = 672.569
+offset_bottom = 260.838
+theme_override_font_sizes/font_size = 30
+text = "Press Space to Restart"
+
+[node name="ExitLabel" type="Label" parent="Control"]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 496.0
+offset_top = 400.0
+offset_right = 636.711
+offset_bottom = 300.838
+theme_override_font_sizes/font_size = 30
+text = "Press Q to Exit"
+
+[node name="NewHighscoreLabel" type="Label" parent="Control"]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 495.0
+offset_top = 400.0
+offset_right = 635.711
+offset_bottom = 300.838
+theme_override_font_sizes/font_size = 30
+text = "New Highscore: 0"
+
+[node name="ErrorMessage" type="Label" parent="Control"]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.113
+anchor_bottom = 0.246
+offset_left = 400.0
+offset_top = 450.0
+offset_right = 800.0
+offset_bottom = 500.0
+theme_override_colors/font_color = Color(1, 0.541176, 0.54902, 1)
+theme_override_font_sizes/font_size = 20
+text = "Cannot save score online: SSL support missing.
+Scores will be saved locally."
+horizontal_alignment = 1
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("6_qfnet")
+enemy_tscn = ExtResource("7_i7141")
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+autostart = true
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_timer_timeout"]

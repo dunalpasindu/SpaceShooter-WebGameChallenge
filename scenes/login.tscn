@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://bipqb04e4umr6"]
+
+[ext_resource type="Script" uid="uid://bqfro01j6j3u5" path="res://scenes/login.gd" id="1_hgct4"]
+[ext_resource type="Texture2D" uid="uid://nhqn4ovx1q23" path="res://assets/kenney_space-shooter-redux/Backgrounds/blue.png" id="2_nw41r"]
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hgct4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "User Login"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="EmailLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Email Address:"
+
+[node name="EmailInput" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter your email address"
+
+[node name="Spacer2" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="PasswordLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Password:"
+
+[node name="PasswordInput" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter your password"
+secret = true
+
+[node name="Spacer3" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ErrorMsg" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.34902, 0.341176, 1)
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LoginButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Login"
+
+[node name="RegisterButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Register"
+
+[node name="LoginBG" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(640, 360)
+scale = Vector2(5, 2.8125)
+texture = ExtResource("2_nw41r")
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
